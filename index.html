@@ -2,8 +2,31 @@
 <html>
   <head>
     <title>undefined mysteries</title>
+    <style type="text/css">
+      h1, h2, h3, h4, h5 {
+        display: none;
+      }
+    </style>
+    <script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
   </head>
   <body>
-    <h1>Hello, Mortal.</h1>
+    <h1 id="1">Hello, Mortal.</h1>
+    <h2 id="2">You have come here seeking information...</h2>
+    <h3 id="3">About I, tehlordvortex (Victor Akinyemi).</h3>
+    <h4 id="4">But for now, there is none.</h4>
+    <h5 id="5">Do check back later. Or watch the repo.</h5>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        function sh (id) {
+          $(id).fadeIn();
+        }
+        setTimeout(showElement("#1"), 1000);
+        setTimeout(showElement("#2"), 3000);
+        setTimeout(showElement("#3"), 5000);
+        setTimeout(showElement("#4"), 7500);
+        setTimeout(showElement("#5"), 10000);
+      });
+    </script>
   </body>
 </html>
