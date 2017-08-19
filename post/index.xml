@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on profound mysteries</title>
+    <link>https://tehlordvortex.github.io/post/</link>
+    <description>Recent content in Posts on profound mysteries</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 19 Aug 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tehlordvortex.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>iPlan</title>
+      <link>https://tehlordvortex.github.io/2017/08/iplan/</link>
+      <pubDate>Sat, 19 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://tehlordvortex.github.io/2017/08/iplan/</guid>
+      <description>&lt;p&gt;One of the things that plague me as a junior developer is a lack of ideas on what to build to expand my skill set. Every time I try to think up a project, I come up blank. So I decided to make the greatest ToDo app ever, using Vue.js and Vuetify.
+&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
