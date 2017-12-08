@@ -1,5 +1,9 @@
 
 
+  
+    
+  
+
 
   
 
@@ -19,25 +23,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.26">
     <meta name="theme" content="Tranquilpeak 0.3.1-BETA">
-    <title>Vue</title>
+    <title>Design Flaws</title>
     <meta name="author" content="Victor Akinyemi">
     <meta name="keywords" content="">
 
     <link rel="icon" href="https://tehlordvortex.github.io/favicon.png">
     
-      <link rel="alternate" type="application/rss+xml" title="RSS" href="https://tehlordvortex.github.io/tags/vue/index.xml">
-    
 
     
-    <meta name="description" content="home of the mysterious vortex">
-    <meta property="og:description" content="home of the mysterious vortex">
+    <meta name="description" content="It&rsquo;s very very easy to fall into the trap of writing code that ends up unmaintenable due to being &ldquo;sphagettified&rdquo;, that is linked together in ways that are hard to decouple, debug and, well, maintained. I&rsquo;ve certainly started heading in that direction with iPlan.
+">
+    <meta property="og:description" content="It&rsquo;s very very easy to fall into the trap of writing code that ends up unmaintenable due to being &ldquo;sphagettified&rdquo;, that is linked together in ways that are hard to decouple, debug and, well, maintained. I&rsquo;ve certainly started heading in that direction with iPlan.
+">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Vue">
-    <meta property="og:url" content="/tags/vue/">
+    <meta property="og:title" content="Design Flaws">
+    <meta property="og:url" content="/2017/12/design-flaws/">
     <meta property="og:site_name" content="profound mysteries">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="profound mysteries">
-    <meta name="twitter:description" content="home of the mysterious vortex">
+    <meta name="twitter:description" content="It&rsquo;s very very easy to fall into the trap of writing code that ends up unmaintenable due to being &ldquo;sphagettified&rdquo;, that is linked together in ways that are hard to decouple, debug and, well, maintained. I&rsquo;ve certainly started heading in that direction with iPlan.
+">
     
       <meta name="twitter:creator" content="@l33tvictor">
     
@@ -74,7 +79,7 @@
 
   <body>
     <div id="blog">
-      <header id="header" data-behavior="1">
+      <header id="header" data-behavior="4">
   <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
   <div class="header-title">
     <a class="header-title-link" href="https://tehlordvortex.github.io/">profound mysteries</a>
@@ -94,7 +99,7 @@
   
 </header>
 
-      <nav id="sidebar" data-behavior="1">
+      <nav id="sidebar" data-behavior="4">
   <div class="sidebar-container">
     
       <div class="sidebar-profile">
@@ -190,39 +195,21 @@
 </nav>
 
       
-        
 
-      
-      <div id="main" data-behavior="1"
+      <div id="main" data-behavior="4"
         class="
                hasCoverMetaIn
                ">
-        
-          <section class="postShorten-group main-content-wrap">
-            
-            
-              
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
   
-    
-      
-        
-      
-    
+    <h1 class="post-title" itemprop="headline">
+      Design Flaws
+    </h1>
   
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://tehlordvortex.github.io/2017/12/design-flaws/">
-          Design Flaws
-        </a>
-      </h1>
-      <div class="postShorten-meta post-meta">
+  <div class="postShorten-meta post-meta">
   
     <time itemprop="datePublished" datetime="2017-12-08T19:42:48&#43;01:00">
       
@@ -248,87 +235,118 @@
 
 </div>
 
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      <p>
-        It&rsquo;s very very easy to fall into the trap of writing code that ends up unmaintenable due to being &ldquo;sphagettified&rdquo;, that is linked together in ways that are hard to decouple, debug and, well, maintained. I&rsquo;ve certainly started heading in that direction with iPlan.
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>It&rsquo;s very very easy to fall into the trap of writing code that ends up unmaintenable due to being &ldquo;sphagettified&rdquo;, that is linked together in ways that are hard to decouple, debug and, well, maintained. I&rsquo;ve certainly started heading in that direction with iPlan.
+</p>
 
-        <br>
-        <a href="https://tehlordvortex.github.io/2017/12/design-flaws/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
+<p>Currently in iPlan, things like the database, toolbar buttons, settings (theme) are taken care of by accessing them directly via <code>$root.$data</code>. The <code>ToDos</code> component is used everywhere and seems to be be getting way too big. This is as a result of me not having a well designed framework in place as I started the project. I had a bunch of ideas in my head and a vague clue as to how they would interface and set out to build something.</p>
+
+<p>The <code>App</code> component ensures that theme changes are immediate by binding the value of the <code>dark</code> attribute on <code>v-app</code> to <code>$root.$data.settings.theme == 'dark'</code>. This ensures that when the value of <code>theme</code> changes, the value of <code>dark</code> changes as well. But it seems janky and patch-like.</p>
+
+<p>The <code>ToDos</code> component, checks which component it&rsquo;s included in by the presence of the <code>ids</code> and <code>goal</code> props and exposes &amp; renders different functionality. While this works at the moment, I wish to make it so that instead of that, the <code>ToDos</code> component can be customized in such a way that the component does not need to know what is using it, but instead uses props passed, which will be more extensive and concise. This should make implementing paginization and other features easier in the future.</p>
+
+<p>The initial implementation of the toolbar buttons led to wonderful bugs such as a new button being added when an action is performed. The current implementation, while functional, also seems janky.</p>
+
+<p>The solution in my head right now is to make use of the Vue event bus to handle things like updating the toolbar and changes to the settings. That is being worked on in the <code>redesign-eventbus</code> branch on my local machine. Oh and did I mention I pushed all changes and new functionality directly to master? Even non-functioning code. That changes now.</p>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://tehlordvortex.github.io//tags/html5/">html5</a>
+
+  <a class="tag tag--primary tag--small" href="https://tehlordvortex.github.io//tags/javascript/">javascript</a>
+
+  <a class="tag tag--primary tag--small" href="https://tehlordvortex.github.io//tags/vue/">vue</a>
+
+  <a class="tag tag--primary tag--small" href="https://tehlordvortex.github.io//tags/vuetify/">vuetify</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://tehlordvortex.github.io/2017/08/iplan/" data-tooltip="iPlan">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https%3a%2f%2ftehlordvortex.github.io%2f2017%2f12%2fdesign-flaws%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2ftehlordvortex.github.io%2f2017%2f12%2fdesign-flaws%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https%3a%2f%2ftehlordvortex.github.io%2f2017%2f12%2fdesign-flaws%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+      <li class="post-action">
+        <a class="post-action-btn btn btn--default" href="#disqus_thread">
+          <i class="fa fa-comment-o"></i>
+        </a>
+      </li>
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
 
             
               
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://tehlordvortex.github.io/2017/08/iplan/">
-          iPlan
-        </a>
-      </h1>
-      <div class="postShorten-meta post-meta">
-  
-    <time itemprop="datePublished" datetime="2017-08-19T00:00:00Z">
-      
-  August 19, 2017
-
-    </time>
-  
-  
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://tehlordvortex.github.io/categories/development">development</a>, 
-    
-      <a class="category-link" href="https://tehlordvortex.github.io/categories/web-development">web development</a>, 
-    
-      <a class="category-link" href="https://tehlordvortex.github.io/categories/side-projects">side projects</a>, 
-    
-      <a class="category-link" href="https://tehlordvortex.github.io/categories/iplan-dev-log">iplan-dev-log</a>
-    
-  
-
-
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      <p>
-        One of the things that plague me as a junior developer is a lack of ideas on what to build to expand my skill set. Every time I try to think up a project, I come up blank. So I decided to make the greatest ToDo app ever, using Vue.js and Vuetify.
-
-        <br>
-        <a href="https://tehlordvortex.github.io/2017/08/iplan/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
+              
             
-            
-
-          </section>
-        
+          </div>
+        </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
     &copy; 2017 <a href="https://github.com/tehlordvortex">Victor Akinyemi</a>. Cover image from <a href="https://unsplash.com/" target="_blank">Unsplash</a>.. All Rights Reserved
@@ -336,6 +354,92 @@
 </footer>
 
       </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="https://tehlordvortex.github.io/2017/08/iplan/" data-tooltip="iPlan">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https%3a%2f%2ftehlordvortex.github.io%2f2017%2f12%2fdesign-flaws%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2ftehlordvortex.github.io%2f2017%2f12%2fdesign-flaws%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https%3a%2f%2ftehlordvortex.github.io%2f2017%2f12%2fdesign-flaws%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+      <li class="post-action">
+        <a class="post-action-btn btn btn--default" href="#disqus_thread">
+          <i class="fa fa-comment-o"></i>
+        </a>
+      </li>
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <ul class="share-options">
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3a%2f%2ftehlordvortex.github.io%2f2017%2f12%2fdesign-flaws%2f">
+        <i class="fa fa-google-plus"></i><span>Share on Google Plus</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2ftehlordvortex.github.io%2f2017%2f12%2fdesign-flaws%2f">
+        <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3a%2f%2ftehlordvortex.github.io%2f2017%2f12%2fdesign-flaws%2f">
+        <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
     </div>
     
     <div id="about">
@@ -485,6 +589,32 @@ $(document).ready(function() {
   });
 });
 </script>
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/tehlordvortex.github.io\/2017\/12\/design-flaws\/';
+          
+            this.page.identifier = '\/2017\/12\/design-flaws\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'profound-mysteries';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
 
 
 
